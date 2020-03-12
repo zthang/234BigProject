@@ -22,8 +22,8 @@ public class GlobalExceptionHandler
     public ResultEntity MethodArgumentTypeMismatchHandler(HttpServletRequest request, Exception e)
     {
         ResultEntity commonMessage = new ResultEntity();
-        commonMessage.setMessage("参数匹配错误！");
-        commonMessage.setState(0);
+        commonMessage.setMsg("参数匹配错误！");
+        commonMessage.setCode(0);
         log(e, request);
         return commonMessage;
     }
@@ -32,8 +32,8 @@ public class GlobalExceptionHandler
     public ResultEntity NullPointerHandler(HttpServletRequest request, Exception e)
     {
         ResultEntity commonMessage = new ResultEntity();
-        commonMessage.setMessage("空指针异常！");
-        commonMessage.setState(0);
+        commonMessage.setMsg("空指针异常！");
+        commonMessage.setCode(0);
         log(e, request);
         return commonMessage;
     }
@@ -42,8 +42,8 @@ public class GlobalExceptionHandler
     public ResultEntity CommonExceptionHandler(HttpServletRequest request, Exception e)
     {
         ResultEntity commonMessage = new ResultEntity();
-        commonMessage.setMessage("异常信息："+e);
-        commonMessage.setState(0);
+        commonMessage.setMsg("异常信息："+e);
+        commonMessage.setCode(0);
         log(e, request);
         return commonMessage;
     }

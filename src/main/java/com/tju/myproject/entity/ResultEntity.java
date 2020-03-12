@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class ResultEntity
 {
-    private Integer state;
-    private String message;
+    private Integer code;
+    private String msg;
     private Object data;
     public ResultEntity(){}
     public ResultEntity(Integer state,String message,Object data)
     {
-        this.state=state;
-        this.message=message;
+        this.code=state;
+        this.msg=message;
         this.data=data;
     }
 }

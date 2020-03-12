@@ -2,6 +2,14 @@ server:
   port: 8787
 
 spring:
+    data:
+      elasticsearch:
+        cluster-name: my-application
+        cluster-nodes: 47.103.217.165:9300
+      neo4j:
+        uri: bolt://47.103.217.165:7687
+        username: neo4j
+        password: neo4j
     datasource:
         name: myProject
         type: com.alibaba.druid.pool.DruidDataSource
@@ -61,4 +69,4 @@ jwt.secret : A0B1C2D3E4F5G6H7I8J9KALBMCNDOEPFQ0R1S2T3U4V5W6X7Y8Z9
 # tocken 过期时间，单位秒
 jwt.expire : 300
 # 需要认证的url，多个URL使用英文逗号,分割
-jwt.authorised-urls : /api/**
+jwt.authorised-urls : /api/t
