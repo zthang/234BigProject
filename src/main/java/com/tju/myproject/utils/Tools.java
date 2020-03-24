@@ -10,9 +10,14 @@ public class Tools
 {
     public String removeMarkdown(String str)
     {
-        String regEx="\\[.*?https*.*?\\)|\\\\{1,2}[a-z]*|!.*?[)]|[`|{}$#*+&‘”“’\\n]";
-        Pattern p= Pattern.compile(regEx);
-        Matcher m= p.matcher(str);
-        return m.replaceAll("").trim();
+        if(str!=null&&str.length()>0)
+        {
+            String regEx="<svg.*?/svg>|<br.*?>|<script.*?/script>|\\[.*?https*.*?\\)|\\\\{1,2}[a-z]*|!.*?[)]|[`|{}$#*+&‘”“’\\n]";
+            Pattern p= Pattern.compile(regEx);
+            Matcher m= p.matcher(str);
+            return m.replaceAll("").trim();
+        }
+        else
+            return str;
     }
 }

@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,19 +42,19 @@ public class ArticleController
             return new ResultEntity(401,"数据库错误!",null);
     }
     @PostMapping("/addArticle")
-    public ResultEntity addArticle(String title,Integer domainID,Integer topicID,String content)
+    public ResultEntity addArticle(String title, Integer domainID, Integer topicID, String content, Integer authorID, String authorName, String publishDate)throws Exception
     {
         Article article=new Article();
         article.setDomain(domainID);
         article.setTopic(topicID);
         article.setTitle(title);
         article.setContent(content);
-        return new ResultEntity(0,null,articleService.addArticle(title,domainID,topicID,content));
+        return new ResultEntity(0,null,articleService.addArticle(title,domainID,topicID,content,authorID,authorName,new SimpleDateFormat("yyyy-MM-dd").parse(publishDate)));
     }
     @GetMapping("/article")
-    public ResultEntity getArcitleByID(String aid)
+    public ResultEntity getArcitleByID(String aid,Integer userID)
     {
-        return new ResultEntity(0,null,articleService.getArcitleByID(aid));
+        return new ResultEntity(0,null,articleService.getArticleByID(aid,userID));
     }
     @GetMapping("/deleteArticle")
     public ResultEntity deleteArticle(String aid)
@@ -63,13 +63,23 @@ public class ArticleController
         return new ResultEntity(0,"ok",null);
     }
     @GetMapping("/articleList")
-    public ResultEntity getArticleList(String topic,Integer page,Integer size)
+    public ResultEntity getArticleList(Integer domainID,Integer topicID,String kw,Integer page, Integer size)
     {
-        return new ResultEntity(0,null,articleService.getArticleList(topic,page,size));
+        return new ResultEntity(0,null,articleService.getArticleList(domainID,topicID,kw,page,size));
     }
     @GetMapping("/searchArticle")
     public ResultEntity searchArticleByContent(String searchStr,Integer page,Integer size)
     {
         return new ResultEntity(0,null,articleService.searchArticleByContent(searchStr,page,size));
+    }
+    @GetMapping("/getPreTopics")
+    public ResultEntity getPreTopics(Integer topicID)
+    {
+        return new ResultEntity(0,null,articleService.getRecommendArticlesAndPreTopics(topicID));
+    }
+    @GetMapping("/favorArticle")
+    public ResultEntity favorArticle(Integer userID,String articleID)
+    {
+        return new ResultEntity(0,articleService.favoriteArticle(userID,articleID),null);
     }
 }

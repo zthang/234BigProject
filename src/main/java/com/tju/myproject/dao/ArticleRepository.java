@@ -7,5 +7,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 public interface ArticleRepository extends ElasticsearchRepository<Article,String>
 {
-    Page<Article> findAllByTopic(Pageable pageable,Integer topic);
-}
+    Page<Article> findAllByTopic(Pageable pageable,Integer topicID);
+    Page<Article> findAllByDomain(Pageable pageable,Integer domainID);
+ }

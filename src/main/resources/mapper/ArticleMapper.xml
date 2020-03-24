@@ -21,4 +21,22 @@
         FROM topic
         WHERE domain_id=#{domainID}
     </select>
+    <select id="findUserFavoriteArticle" resultType="java.util.Map">
+        SELECT *
+        FROM user_article
+        WHERE user_id=#{userID} and article_id=#{articleID}
+    </select>
+    <insert id="insertFavorite">
+        INSERT INTO user_article
+        SET user_id=#{userID},article_id=#{articleID},favorite=1
+    </insert>
+    <update id="setFavorite">
+        UPDATE user_article
+        SET favorite=#{favorite}
+        WHERE user_id=#{userID} and article_id=#{articleID}
+    </update>
+    <select id="getAllTopics" resultMap="topicMap">
+        SELECT *
+        FROM topic
+    </select>
 </mapper>
